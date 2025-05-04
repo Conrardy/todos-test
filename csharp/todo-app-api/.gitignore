@@ -1,0 +1,41 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build results
+bin/
+obj/
+*.dll
+*.exe
+
+# User-specific files
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Package directories
+packages/
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# Backup and temporary files
+*.bak
+*.tmp
+*.swp
+
+# IDE-specific files
+.idea/
+*.code-workspace
+
+# Other
+*.pdb
+*.cache
+*.pid
+*.seed
+*.pid.lock

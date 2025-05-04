@@ -20,8 +20,12 @@ Questions:
 - Comment on gère le "state" ? (maturité en Angular)
 - RxJS : switchMap, forkJoin, TakeUtil, etc. ?
 - Service and observables ? (maturité en Angular)
-- Utilise tu la CLI de Angular ?
+- Utilises tu la CLI de Angular ?
 
 Questions ouverte ?
 
 Problématique / challenge Angular ? Comment tu t'en ai sorti ?
+
+## Avec le Backend
+
+- Ajouter un backend pour stocker les todos.

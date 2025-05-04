@@ -13,11 +13,31 @@ import { bootstrapApplication } from "@angular/platform-browser";
 export class AppComponent {
   tasks: { name: string; completed: boolean }[] = [];
   newTask: string = "";
+  fetchedTodo: { name: string; completed: boolean } | null = null;
+  todoName: string = "";
 
   addTask() {
     if (this.newTask.trim()) {
       this.tasks.push({ name: this.newTask, completed: false });
-      this.newTask = "";
+
+      fetch("http://localhost:5198/todos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name: this.newTask, completed: false }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Task added:", data);
+          this.newTask = "";
+        })
+        .catch((error) => console.error("Error adding task:", error));
     }
   }
 
@@ -27,6 +47,34 @@ export class AppComponent {
 
   toggleComplete(index: number) {
     this.tasks[index].completed = !this.tasks[index].completed;
+  }
+
+  fetchTasks() {
+    fetch("http://localhost:5198/todos")
+      .then((response) => response.json())
+      .then((data) => {
+        this.tasks = data;
+      })
+      .catch((error) => console.error("Error fetching tasks:", error));
+  }
+
+  fetchTodo() {
+    if (this.todoName.trim()) {
+      fetch(`http://localhost:5198/todos/${this.todoName}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Todo not found");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          this.fetchedTodo = data;
+        })
+        .catch((error) => {
+          console.error("Error fetching todo:", error);
+          this.fetchedTodo = null;
+        });
+    }
   }
 }
 
